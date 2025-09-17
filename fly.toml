@@ -1,8 +1,0 @@
-app = "khhhhtffgt"
-primary_region = "fra"
-
-[build]
-  dockerfile = "Dockerfile"
-
-[processes]
-  app = "python IEX.py"

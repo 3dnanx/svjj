@@ -1,0 +1,8 @@
+telethon
+user_agent
+hijri_converter
+requests
+asyncio
+beautifulsoup4
+markdown
+ipaddress

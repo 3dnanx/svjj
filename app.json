@@ -1,25 +1,25 @@
 {
-  "name": "@PP6ZZ",
+  "name": "@anxxx",
   "description": " اهلا بكم في تنصيب سورس صيد اليوزرات !",
   "keywords": ["python", "chatbot","scalingo"],
-  "repository": "https://github.com/lsugsh7/Cuyy",
+  "repository": "https://github.com/3dnanx/svjj",
   "stack": "container",
   "env": {
 
       "APP_ID": {
           "description": "كـود ايبي ايـدي〔 App id 〕اتركـه كمـا هــو",
           "required": true,
-          "value":"24464838"
+          "value":""
       },
       "APP_HASH": {
           "description": "كـود ايبي هـاش〔 Api Hash 〕اتركـه كمـا هــو",
           "required": true,
-          "value":"15acca41a7d564edeb681bb267acfdff"
+          "value":""
       },
       "TERMUX": {
         "description": "كـــود جلســة تيــرمكــس - الكـود الكبيـر مـن حـافظـة حسـابـك او مـن بــوت〔 T66bot@ 〕..",
         "required": true,
-        "value":"1BJWap1sAUFpJapT6uWw5YlXnPHns_LofRSlr8MN4JT7C3sxWLeoOi8ECWFx9D3e8oZ8fFNe5zhvxcuBUVuhnVGtQbDJL7UT5SiAt2tMdVXRUu-bzUXqtFECdFjiQkAE5DFefZEzsQyg6KGlSOIXMF3X6lDJDCE7-S3aY-x53-j-LLR2zrIEbWht7ZbfgvqzFyOAJD2pGxGNXh0-Ih-z8i63pbT2V4Lc6L3ZewxROOImRFvJgasZJ1ymCmxKzF2NN1hScOtizfQutKdD8cFZSfpPJw1S2xLQ6nVUxpyQ6R1iu9s0vvNmIWaTkbNCatCXeOs5ZINHyBB_MKj8WSveT-edHBlhY8KQ="
+        "value":""
       }
   }
 }

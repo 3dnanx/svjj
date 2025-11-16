@@ -685,18 +685,25 @@ def gen_user(choice):
     else:
             pass
     if choice == "34":
-        c = d = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], d[0], d[0], c[0] , d[0], c[0] ,c[0]]
-        random.shuffle(f)
-        username = ''.join(f)
-        if username in banned[0]:
-            c = d = random.choices(a)
-            d = random.choices(e)
-            f = [c[0], d[0], c[0], d[0] , c[0], d[0] ,d[0]]
-            random.shuffle(f)
-            username = ''.join(f)
-        else:
+        c = str(''.join((random.choice(a) for i in range(1))))
+        d = str(''.join((random.choice(e) for i in range(1))))
+        f1 = c+d+d+d+c+c+c
+        f2 = c+c+d+d+d+c+c
+        f3 = c+c+c+d+d+d+c
+        f4 = c+c+c+c+d+d+d
+        f5 = c+c+d+c+d+d+d
+        f6 = c+c+d+d+c+c+d
+        f7 = c+d+c+d+d+d+c
+        f8 = c+d+d+d+c+d+c
+        f9 = c+c+d+c+d+d+c
+        f10 = c+d+c+d+c+c+d
+        f11 = c+c+c+d+d+d+d
+        f12 = c+c+c+c+d+d+d
+        f13 = c+d+d+d+d+c+d
+        f = f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13
+        f = random.choice(f)
+        username = f
+    else:
             pass
     if choice == "35":
         c = str(''.join((random.choice(a) for i in range(1))))
@@ -2558,7 +2565,7 @@ async def pattern_hunt(event):
             isav = que.get()
             
             if "Available" in isav:
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(0.5)
                 try:
                     # ✅ الخطوة 1: تغيير يوزر القناة
                     await IEX(functions.channels.UpdateUsernameRequest(channel=ch, username=username))

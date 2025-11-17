@@ -2509,7 +2509,7 @@ async def pattern_hunt(event):
         
         # ✅ التحقق من الأنماط التي تبدأ برموز ممنوعة ($ + &)
         invalid_start_patterns = []
-        forbidden_starts = ['%', '+', '&']
+        forbidden_starts = ['S3', 'D', 'R', 'N']
         
         for pattern in patterns:
             # إذا كان النمط يبدأ برمز ممنوع

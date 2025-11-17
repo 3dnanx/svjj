@@ -1393,7 +1393,7 @@ async def _(event):
         tr = int(msg[1]) if len(msg) > 1 and msg[1].isdigit() else 1
         
         if choice not in (""):
-        if int(choice) < 1 or int(choice) > 55:                                                                                       
+            if int(choice) < 1 or int(choice) > 55:                                                                                       
                 await event.edit(f"هذا النوع غير موجود: {result}")
                 isclaim.clear()
                 isclaim.append("off")

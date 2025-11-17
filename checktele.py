@@ -53,9 +53,6 @@ aaa = 'x'
 
 
 
-import random
-
-import random
 
 def generate_similar_pattern(input_pattern):
     """
@@ -64,9 +61,9 @@ def generate_similar_pattern(input_pattern):
     الرموز المستخدمة:
     - C: حرف أو رقم عشوائي (a-z, 0-9)
     - A: حرف إنجليزي فقط (a-z)
-    - 123: 3 أرقام متسلسلة (123, 456, 789, 987, 654, 321) - رمز جديد
+    - 123: 3 أرقام متسلسلة (123, 456, 789, 987, 654, 321)
     - F: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
-    - G: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
+    - G: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد) - مختلف عن F
     - N: رقم عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
     - D: رقم عشوائي غير ثابت (يتغير في كل مرة)
     - R: رقم عشوائي غير ثابت (يتغير في كل مرة)
@@ -75,14 +72,14 @@ def generate_similar_pattern(input_pattern):
     - أي حرف آخر يبقى ثابتاً
     """
     
-    # تعريف المتغيرات للرموز الثابتة
-    global fixed_char, fixed_digit, fixed_char_digit
-    if 'fixed_char' not in globals():
-        fixed_char = None
-    if 'fixed_digit' not in globals():
-        fixed_digit = None
-    if 'fixed_char_digit' not in globals():
-        fixed_char_digit = None
+    # تعريف المتغيرات للرموز الثابتة - كل رمز له متغير منفصل
+    global fixed_F, fixed_G, fixed_N, fixed_V
+    
+    # إعادة تعيين المتغيرات الثابتة في بداية كل استدعاء
+    fixed_F = None
+    fixed_G = None
+    fixed_N = None
+    fixed_V = None
     
     result = []
     i = 0
@@ -90,7 +87,6 @@ def generate_similar_pattern(input_pattern):
     while i < len(input_pattern):
         # التحقق من الأنماط المكونة من 3 أحرف أولاً (مثل 123)
         if i + 2 < len(input_pattern) and input_pattern[i:i+3] == '123':
-            # 3 أرقام متسلسلة (123, 456, 789, 987, 654, 321)
             allowed_patterns = ['123', '456', '789', '987', '654', '321']
             result.append(random.choice(allowed_patterns))
             i += 3
@@ -99,7 +95,6 @@ def generate_similar_pattern(input_pattern):
             char = input_pattern[i]
             
             if char == 'C':
-                # حرف أو رقم عشوائي (a-z, 0-9)
                 if random.choice([True, False]):
                     result.append(random.choice('abcdefghijklmnopqrstuvwxyz'))
                 else:
@@ -107,66 +102,51 @@ def generate_similar_pattern(input_pattern):
                 i += 1
                 
             elif char == 'A':
-                # حرف إنجليزي فقط (a-z)
                 result.append(random.choice('abcdefghijklmnopqrstuvwxyz'))
                 i += 1
                 
             elif char == 'F':
-                # حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
-                if fixed_char is None:
-                    fixed_char = random.choice('abcdefghijklmnopqrstuvwxyz')
-                result.append(fixed_char)
+                if fixed_F is None:
+                    fixed_F = random.choice('abcdefghijklmnopqrstuvwxyz')
+                result.append(fixed_F)
                 i += 1
 
             elif char == 'G':
-                # حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
-                if fixed_char is None:
-                    fixed_char = random.choice('abcdefghijklmnopqrstuvwxyz')
-                result.append(fixed_char)
+                if fixed_G is None:
+                    fixed_G = random.choice('abcdefghijklmnopqrstuvwxyz')
+                result.append(fixed_G)
                 i += 1
                 
             elif char == 'N':
-                # رقم عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
-                if fixed_digit is None:
-                    fixed_digit = random.choice('0123456789')
-                result.append(fixed_digit)
+                if fixed_N is None:
+                    fixed_N = random.choice('0123456789')
+                result.append(fixed_N)
                 i += 1
 
             elif char == 'R':
-                # رقم عشوائي غير ثابت (يتغير في كل مرة)
                 result.append(random.choice('0123456789'))
                 i += 1
 
             elif char == 'D':
-                # رقم عشوائي غير ثابت (يتغير في كل مرة)
                 result.append(random.choice('0123456789'))
                 i += 1
                 
             elif char == 'V':
-                # حرف ورقم متشابه ويثبت لكل المحاولات (مثل C لكن ثابت)
-                if fixed_char_digit is None:
-                    # اختيار عشوائي بين حرف أو رقم
+                if fixed_V is None:
                     if random.choice([True, False]):
-                        fixed_char_digit = random.choice('abcdefghijklmnopqrstuvwxyz')
+                        fixed_V = random.choice('abcdefghijklmnopqrstuvwxyz')
                     else:
-                        fixed_char_digit = random.choice('0123456789')
-                result.append(fixed_char_digit)
+                        fixed_V = random.choice('0123456789')
+                result.append(fixed_V)
                 i += 1
                 
             elif char in ['_']:
-                # الشرطة السفلية والشرطة العادية تبقى كما هي
                 result.append(char)
                 i += 1
                 
             else:
-                # أي حرف آخر يبقى ثابتاً
                 result.append(char)
                 i += 1
-    
-    # إعادة تعيين الرموز الثابتة بعد الانتهاء
-    fixed_char = None
-    fixed_digit = None
-    fixed_char_digit = None
     
     return ''.join(result)
 #############################################################################

@@ -62,7 +62,7 @@ def generate_similar_pattern(input_pattern):
     الرموز المستخدمة:
     - C: حرف أو رقم عشوائي (a-z, 0-9)
     - A: حرف إنجليزي فقط (a-z)
-   - S3: 3 أرقام متسلسلة (123, 456, 789 فقط)
+    -SSS: 3 أرقام متسلسلة (123, 456, 789 فقط)
     - F: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
     - G: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
     - N: رقم عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
@@ -107,7 +107,7 @@ def generate_similar_pattern(input_pattern):
             result.append(random.choice('abcdefghijklmnopqrstuvwxyz'))
             i += 1
             
-        elif char == 'S3':
+        elif char == 'SSS':
             # 3 أرقام متسلسلة (123, 456, 789, 987, 654, 321)
             allowed_patterns = ['123', '456', '789', '987', '654', '321']
             result.append(random.choice(allowed_patterns))

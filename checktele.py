@@ -53,16 +53,40 @@ aaa = 'x'
 
 
 
-
 import random
 
 def generate_similar_pattern(input_pattern):
+    """
+    توليد نمط مشابه بناءً على النمط المدخل
+    
+    الرموز المستخدمة:
+    - C: حرف أو رقم عشوائي (a-z, 0-9)
+    - A: حرف إنجليزي فقط (a-z)
+   - S3: 3 أرقام متسلسلة (123, 456, 789 فقط)
+    - F: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
+    - G: حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
+    - N: رقم عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
+    - D: رقم عشوائي غير ثابت (يتغير في كل مرة)
+    - R: رقم عشوائي غير ثابت (يتغير في كل مرة)
+    - V: حرف ورقم متشابه ويثبت لكل المحاولات (مثل C لكن ثابت)
+    - الشرطات (_) تبقى كما هي
+    - أي حرف آخر يبقى ثابتاً
+    
+    المعلمات:
+    input_pattern (str): النمط المدخل باستخدام الرموز المذكورة أعلاه
+    
+    الإرجاع:
+    str: النمط المشابه المُولد
+    """
+    
     # تعريف المتغيرات للرموز الثابتة
-    global fixed_char, fixed_digit
+    global fixed_char, fixed_digit, fixed_char_digit
     if 'fixed_char' not in globals():
         fixed_char = None
     if 'fixed_digit' not in globals():
         fixed_digit = None
+    if 'fixed_char_digit' not in globals():
+        fixed_char_digit = None
     
     result = []
     i = 0
@@ -70,7 +94,7 @@ def generate_similar_pattern(input_pattern):
     while i < len(input_pattern):
         char = input_pattern[i]
         
-        if char == '*':
+        if char == 'C':
             # حرف أو رقم عشوائي (a-z, 0-9)
             if random.choice([True, False]):
                 result.append(random.choice('abcdefghijklmnopqrstuvwxyz'))
@@ -78,37 +102,60 @@ def generate_similar_pattern(input_pattern):
                 result.append(random.choice('0123456789'))
             i += 1
             
-        elif char == '#':
+        elif char == 'A':
             # حرف إنجليزي فقط (a-z)
             result.append(random.choice('abcdefghijklmnopqrstuvwxyz'))
             i += 1
             
-        elif char == '%':
-            # 3 أرقام متسلسلة (فقط 123, 456, 789)
-            allowed_patterns = ['123', '456', '789']
+        elif char == 'S3':
+            # 3 أرقام متسلسلة (123, 456, 789, 987, 654, 321)
+            allowed_patterns = ['123', '456', '789', '987', '654', '321']
             result.append(random.choice(allowed_patterns))
             i += 1
             
-        elif char == '$':
-            # حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية صيد)
+        elif char == 'F':
+            # حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
+            if fixed_char is None:
+                fixed_char = random.choice('abcdefghijklmnopqrstuvwxyz')
+            result.append(fixed_char)
+            i += 1
+
+        elif char == 'G':
+            # حرف عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
             if fixed_char is None:
                 fixed_char = random.choice('abcdefghijklmnopqrstuvwxyz')
             result.append(fixed_char)
             i += 1
             
-        elif char == '&':
-            # رقم عشوائي ثابت (يثبت مرة واحدة لكل عملية صيد)
+        elif char == 'N':
+            # رقم عشوائي ثابت (يثبت مرة واحدة لكل عملية توليد)
             if fixed_digit is None:
                 fixed_digit = random.choice('0123456789')
             result.append(fixed_digit)
             i += 1
-            
-        elif char == '+':
+
+        elif char == 'R':
+            # رقم عشوائي غير ثابت (يتغير في كل مرة)
+            result.append(random.choice('0123456789'))
+            i += 1
+
+        elif char == 'D':
             # رقم عشوائي غير ثابت (يتغير في كل مرة)
             result.append(random.choice('0123456789'))
             i += 1
             
-        elif char in ['_', '-']:
+        elif char == 'V':
+            # حرف ورقم متشابه ويثبت لكل المحاولات (مثل C لكن ثابت)
+            if fixed_char_digit is None:
+                # اختيار عشوائي بين حرف أو رقم
+                if random.choice([True, False]):
+                    fixed_char_digit = random.choice('abcdefghijklmnopqrstuvwxyz')
+                else:
+                    fixed_char_digit = random.choice('0123456789')
+            result.append(fixed_char_digit)
+            i += 1
+            
+        elif char in ['_']:
             # الشرطة السفلية والشرطة العادية تبقى كما هي
             result.append(char)
             i += 1
@@ -121,6 +168,7 @@ def generate_similar_pattern(input_pattern):
     # إعادة تعيين الرموز الثابتة بعد الانتهاء
     fixed_char = None
     fixed_digit = None
+    fixed_char_digit = None
     
     return ''.join(result)
 #############################################################################
@@ -1345,8 +1393,7 @@ async def _(event):
         tr = int(msg[1]) if len(msg) > 1 and msg[1].isdigit() else 1
         
         if choice not in (""):
-            is_valid, result = check_choice_valid(choice)  
-            if not is_valid:                                                                                               
+        if int(choice) < 1 or int(choice) > 55:                                                                                       
                 await event.edit(f"هذا النوع غير موجود: {result}")
                 isclaim.clear()
                 isclaim.append("off")

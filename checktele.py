@@ -2612,7 +2612,7 @@ async def pattern_hunt(event):
             isav = que.get()
             
             if "Available" in isav:
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(0.8)
                 try:
                     # ✅ الخطوة 1: تغيير يوزر القناة
                     await IEX(functions.channels.UpdateUsernameRequest(channel=ch, username=username))
